@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const { applyToJob } = require('../controllers/applicationController');
 
-// Temporary placeholder until controller is created
-router.post('/', (req, res) => {
-  res.json({ message: 'Application submitted successfully (placeholder)' });
-});
+router.post('/', applyToJob);
 
-module.exports = router; // ✅ important
+module.exports = router;
