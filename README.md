@@ -25,6 +25,7 @@ cd job-board-api/server
 npm install
 ```
 ## 🧱 Project Structure
+```
 server/
 ├── config/
 │ └── db.js # MongoDB connection logic
@@ -43,10 +44,7 @@ server/
 ├── .gitignore
 ├── server.js # Entry point
 └── generateToken.js # Admin token generator
-
-#### GET /api/jobs
-Supports: `?page=1&limit=10`
-Returns `jobs[]` + `meta` pagination info
+```
 
 ## 🚀 Run the Server Locally
 npm run dev
@@ -62,3 +60,14 @@ node server.js
 
 # Then use the token in headers:
    Authorization: Bearer <your_token>
+
+
+## 🔗 Live URLs
+
+- ✅ Backend API: [https://job-board-project-server-production.up.railway.app](https://job-board-project-server-production.up.railway.app)
+
+### Example Endpoints:
+
+- `GET /api/jobs` → https://job-board-project-server-production.up.railway.app/api/jobs
+- `POST /api/jobs` (Admin only — needs token)
+- `POST /api/applications`
