@@ -1,14 +1,35 @@
 const Job = require('../models/Job');
 
 // @desc    Get all jobs
+// 📦 GET handler with pagination
 exports.getAllJobs = async (req, res) => {
   try {
-    const jobs = await Job.find().sort({ createdAt: -1 });
-    res.status(200).json(jobs);
+    const { page = 1, limit = 10 } = req.query;
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const [jobs, total] = await Promise.all([
+      Job.find()
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(parseInt(limit)),
+      Job.countDocuments()
+    ]);
+
+    res.status(200).json({
+      jobs,
+      meta: {
+        total,
+        page: parseInt(page),
+        limit: parseInt(limit),
+        totalPages: Math.ceil(total / parseInt(limit)),
+      },
+    });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Error fetching jobs' });
   }
 };
+
 
 // @desc    Get job by ID
 exports.getJobById = async (req, res) => {
